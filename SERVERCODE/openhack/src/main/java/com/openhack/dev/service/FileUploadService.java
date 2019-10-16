@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -101,5 +102,18 @@ public class FileUploadService {
 	public void initiateKafkaMessage(String validateKey) {
 
 		uploadKafkaConfiguration.sendMessage(validateKey);
+	}
+
+	public List<FileMetadata> getAllFileValidateData() {
+
+		List<FileMetadata> fileMetadataList = new ArrayList<FileMetadata>();
+		fileMetadataList = fileUploadRepository.findAll();
+		return fileMetadataList;
+	}
+
+	public Optional<FileMetadata> getFileValidateDataById(String id) {
+		Optional<FileMetadata> fileMetadata = null;
+		fileMetadata = fileUploadRepository.findById(id);
+		return fileMetadata;
 	}
 }
