@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.openhack.dev.configuration.FileUploadKafkaConfiguration;
 import com.openhack.dev.constant.FileConstants;
 import com.openhack.dev.domain.FileMetadata;
 import com.openhack.dev.repository.FileUploadRepository;
@@ -23,6 +24,8 @@ public class FileUploadService {
 
 	@Autowired
 	FileUploadRepository fileUploadRepository;
+	@Autowired
+	FileUploadKafkaConfiguration uploadKafkaConfiguration;
 
 	public FileMetadata saveFileMetadata(FileMetadata fileMetadata) {
 
@@ -47,7 +50,7 @@ public class FileUploadService {
 		fileMetadata.setValidateStatus(FileConstants.IS_SUBMITTED);
 		fileMetadataList.add(fileMetadata);
 		saveFileMetadata(fileMetadata);
-
+		initiateKafkaMessage(fileMetadata.getId());
 		return fileMetadataList;
 	}
 
@@ -68,6 +71,8 @@ public class FileUploadService {
 			fileMetadata.setValidateStatus(FileConstants.IS_SUBMITTED);
 			fileMetadataList.add(fileMetadata);
 			saveFileMetadata(fileMetadata);
+			initiateKafkaMessage(fileMetadata.getId());
+
 		}
 		return fileMetadataList;
 	}
@@ -91,5 +96,10 @@ public class FileUploadService {
 			e.printStackTrace();
 		}
 		return jsonDataString;
+	}
+
+	public void initiateKafkaMessage(String validateKey) {
+
+		uploadKafkaConfiguration.sendMessage(validateKey);
 	}
 }
