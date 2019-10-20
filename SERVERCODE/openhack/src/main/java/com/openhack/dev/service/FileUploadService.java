@@ -116,4 +116,14 @@ public class FileUploadService {
 		fileMetadata = fileUploadRepository.findById(id);
 		return fileMetadata;
 	}
+
+	public void deleteValidateFielData(String validateId) {
+
+		fileUploadRepository.deleteById(validateId);
+
+	}
+
+	public void deleteAllValidateFielData() {
+		fileUploadRepository.deleteAll();
+	}
 }

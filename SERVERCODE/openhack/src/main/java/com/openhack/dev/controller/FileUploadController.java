@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.websocket.server.PathParam;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -57,6 +60,20 @@ public class FileUploadController {
 		Optional<FileMetadata> fileMetadata = null;
 		fileMetadata = fileUploadService.getFileValidateDataById(id);
 		return new ResponseEntity<Optional<FileMetadata>>(fileMetadata, HttpStatus.OK);
+	}
+
+	@DeleteMapping("/deleteValidateFielData/{validateId}")
+	public ResponseEntity<?> deleteValidateFielDataById(@PathVariable String validateId) {
+		fileUploadService.deleteValidateFielData(validateId);
+		return new ResponseEntity<>(HttpStatus.OK);
+
+	}
+
+	@DeleteMapping("/deleteAllValidateFielData")
+	public ResponseEntity<?> deleteAllValidateFielData() {
+		fileUploadService.deleteAllValidateFielData();
+		return new ResponseEntity<>(HttpStatus.OK);
+
 	}
 
 }
