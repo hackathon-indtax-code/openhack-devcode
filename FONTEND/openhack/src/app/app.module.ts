@@ -20,9 +20,12 @@ import { MatTableModule } from '@angular/material/table';
 import { UploadComponent } from './bulkupload/upload/upload.component';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import {MAT_DIALOG_DEFAULT_OPTIONS} from '@angular/material';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { ConfirmComponent } from './confirm/confirm.component';
 
 @NgModule({
-  declarations: [AppComponent, BulkuploadComponent, UploadComponent],
+  declarations: [AppComponent, BulkuploadComponent, UploadComponent, ConfirmComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -37,13 +40,13 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     HttpClientModule,
     FormsModule,
     FlexLayoutModule,
-    MatTableModule, MatSortModule , MatPaginatorModule
+    MatTableModule, MatSortModule , MatPaginatorModule , MatSnackBarModule
   ],
-  providers: [],
+  providers: [ {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {panelClass: 'mat-dialog-override'}}],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent],
   entryComponents: [
-    UploadComponent
+    UploadComponent, ConfirmComponent
 ]
 })
 export class AppModule {}
