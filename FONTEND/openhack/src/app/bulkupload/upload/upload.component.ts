@@ -1,7 +1,7 @@
 import { AppService } from './../../app.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Component, OnInit, ViewChild, Input, ElementRef } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-upload',

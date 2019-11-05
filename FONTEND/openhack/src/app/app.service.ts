@@ -15,6 +15,11 @@ export class AppService {
       this.apiUrl + '/api/getAllFileValidateData'
     );
   }
+
+  getUpdateDataById(validateId) {
+    return this.http.get( this.apiUrl + '/api/getFileValidateDataById/' + validateId);
+  }
+
   uploadFileData(selectedFilesData: any) {
     const formData = new FormData();
 
@@ -25,7 +30,7 @@ export class AppService {
     return this.http.post(this.apiUrl + '/api/uploadMultipleFiles', formData);
   }
 
-  deleteValidateFielData(validateFileObj) {
+  deleteValidateFileData(validateFileObj) {
     const validateFileId = validateFileObj.id;
     return this.http.delete(this.apiUrl + '/api/deleteValidateFielData/' + validateFileId);
   }
